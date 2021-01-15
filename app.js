@@ -50,7 +50,7 @@ app.post("/", function(req, res){
 
     const options = {
         method: "POST",
-        auth: "maya1:ad796219496b7ee9f6db24cbe6f2ff65-us7" 
+        auth: "anyString:API key" 
     };
     //is a js object
     // method - https method
@@ -78,6 +78,5 @@ app.listen(3000, function(){
     console.log("server is running on port 3000");
 })
 
-//API key ad796219496b7ee9f6db24cbe6f2ff65-us7
-//List Id b9c6dc0897
+
 
