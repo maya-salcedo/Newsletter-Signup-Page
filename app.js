@@ -2,6 +2,7 @@ const express = require("express");
 const request = require("request");
 const bodyParser = require("body-parser");
 const https = require("https"); //to post back data to external resource
+const { RSA_NO_PADDING } = require("constants");
 
 
 
@@ -50,13 +51,21 @@ app.post("/", function(req, res){
 
     const options = {
         method: "POST",
-        auth: "anyString:API key" 
+        auth: "anyString:APIkey" 
     };
     //is a js object
     // method - https method
-    //auth - htpps; key(any string): APIkey
+    //auth - htpps; key(any string):APIkey
 
     const request = https.request(url, options, function(response){
+
+        if (response.statusCode === 200){
+            res.sendFile(__dirname + "/success.html");
+        } else{
+            res.sendFile(__dirname + "/failure.html");
+        }
+
+
         response.on("data", function(data){
             console.log(JSON.parse(data));
         })
@@ -71,8 +80,14 @@ app.post("/", function(req, res){
     //to pass the jsonData to mailchimp server
     request.end();
     //to specify that we are done with the request
+
+
 })
 
+
+app.post("/failure", function(req, res){
+    res.sendFile(__dirname + "/signup.html");
+})
 
 app.listen(3000, function(){
     console.log("server is running on port 3000");
